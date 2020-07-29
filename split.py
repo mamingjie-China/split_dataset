@@ -62,15 +62,6 @@ def check_input(dataset_type, dataset_dir, val_percent, test_percent):
     if val_percent <= 0 or val_percent >= 1 or test_percent < 0 or test_percent >= 1 or val_percent + test_percent >= 1 - 0.00001:
         raise ValueError("Please input correct split percent")
 
-    # if dataset_type == "coco":
-    #     if not osp.exists(osp.join(dataset_dir, "annotations.json")):
-    #         raise ValueError("\'annotations.json\' is not found in {}!".format(
-    #             dataset_dir))
-    # elif dataset_type == "imagenet":
-    #     if not osp.exists(osp.join(dataset_dir, "JPEGImages")):
-    #         raise ValueError("\'JPEGImages\' is not found in {}!".format(
-    #             dataset_dir))
-
     return True
 
 
@@ -94,10 +85,13 @@ def main():
             split_coco_dataset(dataset_dir, val_percent, test_percent)
         elif dataset_type == "voc":
             split_voc_dataset(dataset_dir, val_percent, test_percent)
-        elif dataset_type == "seg":
-            split_seg_dataset(dataset_dir, val_percent, test_percent)
-        elif dataset_type == "imagenet":
-            split_imagenet_dataset(dataset_dir, val_percent, test_percent)
+        else:
+            print("The type {} is not supported now".format(dataset_type))
+            return
+        # elif dataset_type == "seg":
+        #     split_seg_dataset(dataset_dir, val_percent, test_percent)
+        # elif dataset_type == "imagenet":
+        #     split_imagenet_dataset(dataset_dir, val_percent, test_percent)
 
 
 if __name__ == "__main__":
