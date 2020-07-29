@@ -18,4 +18,6 @@ import numpy as np
 
 
 def split_imagenet_dataset(dataset_dir, val_percent, test_percent):
-    pass
+    if not osp.exists(osp.join(dataset_dir, "JPEGImages")):
+        raise ValueError("\'JPEGImages\' is not found in {}!".format(
+            dataset_dir))

@@ -32,6 +32,9 @@ class MyEncoder(json.JSONEncoder):
 
 
 def split_coco_dataset(dataset_dir, val_percent, test_percent):
+    if not osp.exists(osp.join(dataset_dir, "annotations.json")):
+        raise ValueError("\'annotations.json\' is not found in {}!".format(
+            dataset_dir))
     try:
         from pycocotools.coco import COCO
     except:

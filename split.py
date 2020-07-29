@@ -54,22 +54,22 @@ def arg_parser():
 
 def check_input(dataset_type, dataset_dir, val_percent, test_percent):
     # 输入校验
-    if not dataset_type in ["coco", "imagenet"]:
+    if not dataset_type in ["coco", "imagenet", "voc", "seg"]:
         raise ValueError(
-            "--type is not correct defined(support COCO/ImageNet)")
+            "--type is not correct defined(support COCO/ImageNet/VOC/Seg)")
     if not osp.exists(dataset_dir):
         raise ValueError("File {} is not exist!".format(dataset_dir))
     if val_percent <= 0 or val_percent >= 1 or test_percent < 0 or test_percent >= 1 or val_percent + test_percent >= 1 - 0.00001:
         raise ValueError("Please input correct split percent")
 
-    if dataset_type == "coco":
-        if not osp.exists(osp.join(dataset_dir, "annotations.json")):
-            raise ValueError("\'annotations.json\' is not found in {}!".format(
-                dataset_dir))
-    elif dataset_type == "imagenet":
-        if not osp.exists(osp.join(dataset_dir, "JPEGImages")):
-            raise ValueError("\'JPEGImages\' is not found in {}!".format(
-                dataset_dir))
+    # if dataset_type == "coco":
+    #     if not osp.exists(osp.join(dataset_dir, "annotations.json")):
+    #         raise ValueError("\'annotations.json\' is not found in {}!".format(
+    #             dataset_dir))
+    # elif dataset_type == "imagenet":
+    #     if not osp.exists(osp.join(dataset_dir, "JPEGImages")):
+    #         raise ValueError("\'JPEGImages\' is not found in {}!".format(
+    #             dataset_dir))
 
     return True
 
