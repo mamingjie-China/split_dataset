@@ -17,6 +17,9 @@ import argparse
 import sys
 import os.path as osp
 from coco_split import split_coco_dataset
+from voc_split import split_voc_dataset
+from seg_split import split_seg_dataset
+from imagenet_split import split_imagenet_dataset
 
 
 def arg_parser():
@@ -74,7 +77,7 @@ def check_input(dataset_type, dataset_dir, val_percent, test_percent):
 def main():
     if len(sys.argv) < 4:
         print(
-            "Usage: python split.py --type COCO --dir ann.json --val_percent 0.2 --test_percent 0.1"
+            "Usage: python split.py --type COCO --dir dataset_path --val_percent 0.2 --test_percent 0.1"
         )
         return
 
@@ -89,6 +92,12 @@ def main():
     if check_input(dataset_type, dataset_dir, val_percent, test_percent):
         if dataset_type == "coco":
             split_coco_dataset(dataset_dir, val_percent, test_percent)
+        elif dataset_type == "voc":
+            split_voc_dataset(dataset_dir, val_percent, test_percent)
+        elif dataset_type == "seg":
+            split_seg_dataset(dataset_dir, val_percent, test_percent)
+        elif dataset_type == "imagenet":
+            split_imagenet_dataset(dataset_dir, val_percent, test_percent)
 
 
 if __name__ == "__main__":
