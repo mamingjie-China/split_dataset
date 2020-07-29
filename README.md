@@ -1,6 +1,6 @@
 # split_dataset
 该脚本主要用于对各类数据集进行切分，提供给进行训练，预计未来会集成到PaddleX中，欢迎大家使用[PaddleX](https://www.paddlepaddle.org.cn/paddle/paddleX)。
-目前，已经支持COCO格式和VOC格式的数据集的切分，ImageNet和Seg格式的数据切分即将进行支持，具体的数据格式见[数据格式](https://paddlex.readthedocs.io/zh_CN/develop/data/format/index.html)
+目前，已经支持COCO格式和VOC格式的数据集的切分，ImageNet和Seg格式的数据切分即将进行支持，具体的数据格式见[数据格式](https://paddlex.readthedocs.io/zh_CN/develop/data/format/index.html)。
 
 
 **按需安装以下依赖**  
@@ -28,3 +28,9 @@ python split.py --type VOC --dir insect_det --val_percent 0.2 --test_percent 0.1
 |--dir | 数据集文件夹的路径 |
 |--val_percent | 验证集切分的比例（如0.2） |
 |--test_percent | 测试集切分的比例（如0.1） |
+
+## 交流与反馈
+
+- 项目官网: https://www.paddlepaddle.org.cn/paddle/paddlex
+- PaddleX用户交流群: 1045148026 (手机QQ扫描如下二维码快速加入)  
+<img src="./docs/gui/images/QR.jpg" width="250" height="300" alt="QQGroup" align="center" />
