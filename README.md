@@ -18,16 +18,17 @@ git checkout develop
 
 ## 使用方法
 ```
-python split.py --type VOC --dir insect_det --val_percent 0.2 --test_percent 0.1
+python split.py --form COCO --split_dataset dataset_path --val_percent 0.2 --test_percent 0.1
 ```
 
 ## 参数选项
 | 参数 | |
 |----------|--------------|
-|--type | 数据集格式类型 (VOC、COCO、ImageNet、Seg) |
-|--dir | 数据集文件夹的路径 |
-|--val_percent | 验证集切分的比例（如0.2） |
-|--test_percent | 测试集切分的比例（如0.1） |
+|--form | 数据集格式类型 (VOC、COCO、ImageNet、Seg) |
+|--split_dataset | 数据集文件夹的路径 |
+|--val_percent | 验证集切分的比例（如0.2，不可为0） |
+|--test_percent | **[可选]**测试集切分的比例（如0.1，可以为0） |
+|--save_dir | **[可选]**切分生成的文件的路径（默认与数据集路径相同） |
 
 ## 交流与反馈
 
