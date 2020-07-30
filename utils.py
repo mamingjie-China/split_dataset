@@ -14,9 +14,6 @@
 
 import os
 import os.path as osp
-import shutil
-from enum import Enum
-import traceback
 from PIL import Image
 import numpy as np
 import json

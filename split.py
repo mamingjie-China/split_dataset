@@ -104,11 +104,12 @@ def main():
         elif dataset_type == "seg":
             train_num, val_num, test_num = split_seg_dataset(
                 dataset_dir, val_percent, test_percent, save_dir)
+        elif dataset_type == "imagenet":
+            train_num, val_num, test_num = split_imagenet_dataset(
+                dataset_dir, val_percent, test_percent, save_dir)
         else:
             print("The type {} is not supported now".format(dataset_type))
             return
-        # elif dataset_type == "imagenet":
-        #     split_imagenet_dataset(dataset_dir, val_percent, test_percent)
 
     print("Dataset Split Done.")
     print("Train samples: {}".format(train_num))
