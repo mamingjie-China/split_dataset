@@ -85,8 +85,4 @@ def split_voc_dataset(dataset_dir, val_percent, test_percent, save_dir):
         for l in sorted(label_list):
             f.write('{}\n'.format(l))
 
-    print("VOC Split Done")
-    print("Train samples: {}".format(train_num))
-    print("Eval samples: {}".format(val_num))
-    print("Test samples: {}".format(test_num))
-    print("Split txt file saved in {}".format(save_dir))
+    return train_num, val_num, test_num

@@ -96,17 +96,25 @@ def main():
     if check_input(dataset_type, dataset_dir, val_percent, test_percent,
                    save_dir):
         if dataset_type == "coco":
-            split_coco_dataset(dataset_dir, val_percent, test_percent,
-                               save_dir)
+            train_num, val_num, test_num = split_coco_dataset(
+                dataset_dir, val_percent, test_percent, save_dir)
         elif dataset_type == "voc":
-            split_voc_dataset(dataset_dir, val_percent, test_percent, save_dir)
+            train_num, val_num, test_num = split_voc_dataset(
+                dataset_dir, val_percent, test_percent, save_dir)
         elif dataset_type == "seg":
-            split_seg_dataset(dataset_dir, val_percent, test_percent, save_dir)
+            train_num, val_num, test_num = split_seg_dataset(
+                dataset_dir, val_percent, test_percent, save_dir)
         else:
             print("The type {} is not supported now".format(dataset_type))
             return
         # elif dataset_type == "imagenet":
         #     split_imagenet_dataset(dataset_dir, val_percent, test_percent)
+
+    print("Dataset Split Done.")
+    print("Train samples: {}".format(train_num))
+    print("Eval samples: {}".format(val_num))
+    print("Test samples: {}".format(test_num))
+    print("Split file saved in {}".format(save_dir))
 
 
 if __name__ == "__main__":

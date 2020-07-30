@@ -22,6 +22,19 @@ import numpy as np
 import json
 
 
+class MyEncoder(json.JSONEncoder):
+    # 调整json文件存储形式
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(MyEncoder, self).default(obj)
+
+
 def list_files(dirname):
     """ 列出目录下所有文件（包括所属的一级子目录下文件）
 
