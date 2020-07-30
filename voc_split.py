@@ -18,7 +18,7 @@ import xml.etree.ElementTree as ET
 from utils import list_files, is_pic, replace_ext
 
 
-def split_voc_dataset(dataset_dir, val_percent, test_percent):
+def split_voc_dataset(dataset_dir, val_percent, test_percent, save_dir):
     if not osp.exists(osp.join(dataset_dir, "JPEGImages")):
         raise ValueError("\'JPEGImages\' is not found in {}!".format(
             dataset_dir))
@@ -59,29 +59,29 @@ def split_voc_dataset(dataset_dir, val_percent, test_percent):
     test_image_anno_list = image_anno_list[train_num + val_num:]
 
     with open(
-            osp.join(dataset_dir, 'train_list.txt'), mode='w',
+            osp.join(save_dir, 'train_list.txt'), mode='w',
             encoding='utf-8') as f:
         for x in train_image_anno_list:
             file = osp.join("JPEGImages", x[0])
             label = osp.join("Annotations", x[1])
             f.write('{} {}\n'.format(file, label))
     with open(
-            osp.join(dataset_dir, 'val_list.txt'), mode='w',
+            osp.join(save_dir, 'val_list.txt'), mode='w',
             encoding='utf-8') as f:
         for x in val_image_anno_list:
             file = osp.join("JPEGImages", x[0])
             label = osp.join("Annotations", x[1])
             f.write('{} {}\n'.format(file, label))
+    if len(test_image_anno_list):
+        with open(
+                osp.join(save_dir, 'test_list.txt'), mode='w',
+                encoding='utf-8') as f:
+            for x in test_image_anno_list:
+                file = osp.join("JPEGImages", x[0])
+                label = osp.join("Annotations", x[1])
+                f.write('{} {}\n'.format(file, label))
     with open(
-            osp.join(dataset_dir, 'test_list.txt'), mode='w',
-            encoding='utf-8') as f:
-        for x in test_image_anno_list:
-            file = osp.join("JPEGImages", x[0])
-            label = osp.join("Annotations", x[1])
-            f.write('{} {}\n'.format(file, label))
-    with open(
-            osp.join(dataset_dir, 'labels.txt'), mode='w',
-            encoding='utf-8') as f:
+            osp.join(save_dir, 'labels.txt'), mode='w', encoding='utf-8') as f:
         for l in sorted(label_list):
             f.write('{}\n'.format(l))
 
@@ -89,6 +89,4 @@ def split_voc_dataset(dataset_dir, val_percent, test_percent):
     print("Train samples: {}".format(train_num))
     print("Eval samples: {}".format(val_num))
     print("Test samples: {}".format(test_num))
-    print(
-        "Split txt(train_list.txt, val_list.txt, test_list.txt, labels.txt) saved in {}".
-        format(dataset_dir))
+    print("Split txt file saved in {}".format(save_dir))

@@ -31,7 +31,7 @@ class MyEncoder(json.JSONEncoder):
             return super(MyEncoder, self).default(obj)
 
 
-def split_coco_dataset(dataset_dir, val_percent, test_percent):
+def split_coco_dataset(dataset_dir, val_percent, test_percent, save_dir):
     if not osp.exists(osp.join(dataset_dir, "annotations.json")):
         raise ValueError("\'annotations.json\' is not found in {}!".format(
             dataset_dir))
@@ -69,17 +69,16 @@ def split_coco_dataset(dataset_dir, val_percent, test_percent):
         }
 
         if img_id_list == train_files_ids:
-            json_file = open(osp.join(dataset_dir, 'train.json'), 'w+')
+            json_file = open(osp.join(save_dir, 'train.json'), 'w+')
             json.dump(img_dict, json_file, cls=MyEncoder)
         elif img_id_list == val_files_ids:
-            json_file = open(osp.join(dataset_dir, 'val.json'), 'w+')
+            json_file = open(osp.join(save_dir, 'val.json'), 'w+')
             json.dump(img_dict, json_file, cls=MyEncoder)
-        elif img_id_list == test_files_ids:
-            json_file = open(osp.join(dataset_dir, 'test.json'), 'w+')
+        elif img_id_list == test_files_ids and len(test_files_ids):
+            json_file = open(osp.join(save_dir, 'test.json'), 'w+')
             json.dump(img_dict, json_file, cls=MyEncoder)
     print("COCO Split Done")
     print("Train samples: {}".format(train_num))
     print("Eval samples: {}".format(val_num))
     print("Test samples: {}".format(test_num))
-    print("Split json(train.json, val.json, test.json) saved in {}".format(
-        dataset_dir))
+    print("Split json file saved in {}".format(save_dir))

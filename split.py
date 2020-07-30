@@ -25,13 +25,13 @@ from imagenet_split import split_imagenet_dataset
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--type",
-        "-t",
+        "--form",
+        "-f",
         type=_text_type,
         default=None,
-        help="the type of dataset(COCO, ImageNet)")
+        help="the type of dataset(COCO, ImageNet, VOC, Seg)")
     parser.add_argument(
-        "--dir",
+        "--split_dataset",
         "-d",
         type=_text_type,
         default=None,
@@ -46,45 +46,61 @@ def arg_parser():
         "--test_percent",
         "-tp",
         type=_text_type,
-        default=None,
+        default=0.0,
         help="test set percent number(for example 0.1)")
+    parser.add_argument(
+        "--save_dir",
+        "-s",
+        type=_text_type,
+        default=None,
+        help="the path of saved file")
 
     return parser
 
 
-def check_input(dataset_type, dataset_dir, val_percent, test_percent):
+def check_input(dataset_type, dataset_dir, val_percent, test_percent,
+                save_dir):
     # 输入校验
     if not dataset_type in ["coco", "imagenet", "voc", "seg"]:
         raise ValueError(
             "--type is not correct defined(support COCO/ImageNet/VOC/Seg)")
     if not osp.exists(dataset_dir):
         raise ValueError("File {} is not exist!".format(dataset_dir))
-    if val_percent <= 0 or val_percent >= 1 or test_percent < 0 or test_percent >= 1 or val_percent + test_percent >= 1 - 0.00001:
+    if val_percent <= 0 or val_percent >= 1 or test_percent < 0 or test_percent >= 1 or val_percent + test_percent >= 1:
         raise ValueError("Please input correct split percent")
+    if not osp.exists(save_dir):
+        raise ValueError("Please input correct save dir")
 
     return True
 
 
 def main():
-    if len(sys.argv) < 4:
+    print(sys.argv)
+    if len(sys.argv) < 7:
         print(
-            "Usage: python split.py --type COCO --dir dataset_path --val_percent 0.2 --test_percent 0.1"
+            "Usage: python split.py --form COCO --split_dataset dataset_path --val_percent 0.2 --test_percent 0.1"
         )
         return
 
     parser = arg_parser()
     args = parser.parse_args()
 
-    dataset_type = args.type.lower()
-    dataset_dir = args.dir
+    dataset_type = args.form.lower()
+    dataset_dir = args.split_dataset
     val_percent = float(args.val_percent)
     test_percent = float(args.test_percent)
+    if args.save_dir is None:
+        save_dir = dataset_dir
+    else:
+        save_dir = args.save_dir
 
-    if check_input(dataset_type, dataset_dir, val_percent, test_percent):
+    if check_input(dataset_type, dataset_dir, val_percent, test_percent,
+                   save_dir):
         if dataset_type == "coco":
-            split_coco_dataset(dataset_dir, val_percent, test_percent)
+            split_coco_dataset(dataset_dir, val_percent, test_percent,
+                               save_dir)
         elif dataset_type == "voc":
-            split_voc_dataset(dataset_dir, val_percent, test_percent)
+            split_voc_dataset(dataset_dir, val_percent, test_percent, save_dir)
         else:
             print("The type {} is not supported now".format(dataset_type))
             return
