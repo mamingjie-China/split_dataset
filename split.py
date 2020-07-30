@@ -75,7 +75,6 @@ def check_input(dataset_type, dataset_dir, val_percent, test_percent,
 
 
 def main():
-    print(sys.argv)
     if len(sys.argv) < 7:
         print(
             "Usage: python split.py --form COCO --split_dataset dataset_path --val_percent 0.2 --test_percent 0.1"
@@ -101,11 +100,11 @@ def main():
                                save_dir)
         elif dataset_type == "voc":
             split_voc_dataset(dataset_dir, val_percent, test_percent, save_dir)
+        elif dataset_type == "seg":
+            split_seg_dataset(dataset_dir, val_percent, test_percent, save_dir)
         else:
             print("The type {} is not supported now".format(dataset_type))
             return
-        # elif dataset_type == "seg":
-        #     split_seg_dataset(dataset_dir, val_percent, test_percent)
         # elif dataset_type == "imagenet":
         #     split_imagenet_dataset(dataset_dir, val_percent, test_percent)
 

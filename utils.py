@@ -77,3 +77,16 @@ def replace_ext(filename, new_ext):
     items[-1] = new_ext
     new_filename = ".".join(items)
     return new_filename
+
+
+def read_seg_ann(pngfile):
+    """ 解析语义分割的标注png图片
+
+    Args:
+        pngfile: 包含标注信息的png图片路径
+    """
+    grt = np.asarray(Image.open(pngfile))
+    labels = list(np.unique(grt))
+    if 255 in labels:
+        labels.remove(255)
+    return labels
