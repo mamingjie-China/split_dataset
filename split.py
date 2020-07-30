@@ -16,10 +16,10 @@ from six import text_type as _text_type
 import argparse
 import sys
 import os.path as osp
-from coco_split import split_coco_dataset
-from voc_split import split_voc_dataset
-from seg_split import split_seg_dataset
-from imagenet_split import split_imagenet_dataset
+from dataset.coco_split import split_coco_dataset
+from dataset.voc_split import split_voc_dataset
+from dataset.seg_split import split_seg_dataset
+from dataset.imagenet_split import split_imagenet_dataset
 
 
 def arg_parser():
