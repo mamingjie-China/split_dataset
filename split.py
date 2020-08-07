@@ -25,11 +25,11 @@ from dataset.imagenet_split import split_imagenet_dataset
 def arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--form",
+        "--format",
         "-f",
         type=_text_type,
         default=None,
-        help="the type of dataset(COCO, ImageNet, VOC, Seg)")
+        help="the format of dataset(COCO, ImageNet, VOC, Seg)")
     parser.add_argument(
         "--split_dataset",
         "-d",
@@ -77,14 +77,14 @@ def check_input(dataset_type, dataset_dir, val_percent, test_percent,
 def main():
     if len(sys.argv) < 7:
         print(
-            "Usage: python split.py --form COCO --split_dataset dataset_path --val_percent 0.2 --test_percent 0.1"
+            "Usage: python split.py --format COCO --split_dataset dataset_path --val_percent 0.2 --test_percent 0.1"
         )
         return
 
     parser = arg_parser()
     args = parser.parse_args()
 
-    dataset_type = args.form.lower()
+    dataset_type = args.format.lower()
     dataset_dir = args.split_dataset
     val_percent = float(args.val_percent)
     test_percent = float(args.test_percent)
